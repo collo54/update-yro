@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:update_yro/flavour.dart';
 import 'package:provider/provider.dart';
+import 'package:update_yro/pages/loginpage.dart';
 import 'pages/testpage.dart';
 import 'firebase_options.dart';
 
@@ -61,7 +62,7 @@ class ShujaaApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const Loginpage(), // const HomePage(),
     );
   }
 }
