@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../models/usermodel.dart';
+import 'package:update_yro/models/usermodel.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth;
