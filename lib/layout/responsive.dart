@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:update_yro/widgets/card.dart';
+import 'package:update_yro/widgets/card1.dart';
 
 class AddFirestoreData extends StatelessWidget {
   const AddFirestoreData({Key? key}) : super(key: key);
@@ -26,16 +27,19 @@ class DesktopNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
+        const SizedBox(
+          height: 20,
+        ),
         const Padding(
           padding: EdgeInsets.all(16.0),
-          child: TopUpCard(),
+          child: Card2(),
         ),
         MaterialButton(
           color: Colors.indigo[100],
           shape: const CircleBorder(side: BorderSide.none),
-          onPressed: () {}, //_createContributor(context),
+          onPressed: () {},
           child: const Padding(
             padding: EdgeInsets.all(25),
             child: Icon(
@@ -54,20 +58,26 @@ class MobileNavbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+    return Stack(
+      clipBehavior: Clip.none,
       children: [
-        const TopUpCard(),
-        MaterialButton(
-          color: Colors.indigo[100],
-          shape: const CircleBorder(side: BorderSide.none),
-          onPressed: () {},
-          //_createContributor(context),
-          child: const Padding(
-            padding: EdgeInsets.all(25),
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+          child: Card1(),
+        ),
+        Positioned(
+          top: -4,
+          right: -4,
+          child: MaterialButton(
+            color: Colors.indigo[100],
+            shape: const CircleBorder(side: BorderSide.none),
+            onPressed: () {},
+            child: const Padding(
+              padding: EdgeInsets.all(25),
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
