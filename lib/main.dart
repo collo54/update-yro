@@ -1,14 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:update_yro/flavour.dart';
-import 'package:provider/provider.dart';
 import 'package:update_yro/pages/loginpage.dart';
+import 'package:update_yro/services/auth_service.dart';
 import 'firebase_options.dart';
+import 'pages/testpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(Provider<Flavour>.value(value: Flavour.dev, child: MyApp()));
+
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -41,6 +43,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+final authenticate = Provider((ref) => AuthService());
+
 class ShujaaApp extends StatelessWidget {
   const ShujaaApp({Key? key}) : super(key: key);
 
@@ -48,22 +52,22 @@ class ShujaaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'shujaa update',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const Loginpage(), // const HomePage(),
-    );
+        title: 'shujaa update',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.blue,
+        ),
+        home: const Loginpage() //const HomePage(),
+        );
   }
 }
 

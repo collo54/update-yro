@@ -1,19 +1,22 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:update_yro/main.dart';
+
 //import 'package:rive/rive.dart';
 //import 'package:yro/constants/colors.dart';
-import 'package:update_yro/services/auth_service.dart';
 
 enum EmailSignInFormType { signIn, register }
 
-class FinalstatefulForm extends StatefulWidget {
+class FinalstatefulForm extends ConsumerStatefulWidget {
   const FinalstatefulForm({Key? key}) : super(key: key);
 
   @override
   _FinalstatefulFormState createState() => _FinalstatefulFormState();
 }
 
-class _FinalstatefulFormState extends State<FinalstatefulForm> {
+class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
   final _formKey = GlobalKey<FormState>();
   EmailSignInFormType _formType = EmailSignInFormType.signIn;
 
@@ -34,9 +37,11 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
     form.reset();
   }
 
-  Future<void> _signInAnonymously(BuildContext context) async {
+  //A future asynchronous field that implements authservice to sign in anonymously when
+  // user clicks anonymous button
+  Future<void> _signInAnonymously() async {
     try {
-      final auth = Provider.of<AuthService>(context, listen: false);
+      final auth = ref.read(authenticate);
       final user = await auth.signInAnonymously();
       print('uid: ${user!.uid}');
     } catch (e) {
@@ -44,9 +49,11 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
     }
   }
 
+//A future asynchronous field that implements authservice to sign in with google when
+// user clicks google button
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
-      final auth = Provider.of<AuthService>(context, listen: false);
+      final auth = ref.read(authenticate);
       final user = await auth.signInWithGoogle();
       print('uid: ${user!.uid}');
     } catch (e) {
@@ -54,16 +61,18 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
     }
   }
 
+//A future asynchronous field that implements authservice to create user or log in with email
+//when user clicks email button button
   Future<void> _submit(BuildContext context) async {
     try {
       if ((_formType == EmailSignInFormType.signIn) &&
           (_validateAndSaveForm())) {
         print('$_email');
-        final auth = Provider.of<AuthService>(context, listen: false);
+        final auth = ref.read(authenticate);
         await auth.signInWithEmailAndPassword(_email, _password!);
       } else if (_validateAndSaveForm()) {
         print('$_email');
-        final auth = Provider.of<AuthService>(context, listen: false);
+        final auth = ref.read(authenticate);
         await auth.createUserWithEmailAndPassword(_email, _password!);
       }
     } catch (e) {
@@ -129,7 +138,7 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
       const Padding(
         padding: EdgeInsets.only(top: 35, left: 16),
         child: Text(
-          "Welcome to yro",
+          "shujaa spices",
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black87),
         ),
@@ -210,7 +219,7 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
           color: Colors.yellow[700],
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(13.0))),
-          onPressed: () => _signInAnonymously(context),
+          onPressed: () => _signInAnonymously(),
           child: const Padding(
             padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
             child: Text(
