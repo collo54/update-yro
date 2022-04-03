@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rive/rive.dart';
+//import 'package:rive/rive.dart';
 //import 'package:yro/constants/colors.dart';
 import 'package:update_yro/services/auth_service.dart';
 
@@ -100,7 +100,7 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
 
   List<Widget> pageChildren(double width, BuildContext context) {
     return <Widget>[
-      Container(
+      /* Container(
         height: 590,
         width: width,
         child: const RiveAnimation.asset(
@@ -109,7 +109,7 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
         ), //Image.asset("assets/images/watsup1.jpeg", fit: BoxFit.cover),
         //  Image.asset("assets/images/watsup2.jpeg", fit: BoxFit.cover),
         // Image.asset("assets/images/watsup5.jpeg", fit: BoxFit.cover),
-      ),
+      ),*/
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: const BoxDecoration(
@@ -128,7 +128,7 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       const Padding(
         padding: EdgeInsets.only(top: 35, left: 16),
-        child: const Text(
+        child: Text(
           "Welcome to yro",
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black87),
@@ -136,7 +136,7 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
       ),
       const Padding(
         padding: EdgeInsets.only(top: 14, left: 16),
-        child: const Text(
+        child: Text(
           "sign up to continue",
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black45),
@@ -235,14 +235,14 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
             padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/google-logo.png"),
-                const SizedBox(
+              children: const [
+                // Image.asset("assets/images/google-logo.png"),
+                SizedBox(
                   width: 10,
                 ),
-                const Text(
+                Text(
                   "Sign Up with google",
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
                       fontStyle: FontStyle.normal),
@@ -284,7 +284,7 @@ class _FinalstatefulFormState extends State<FinalstatefulForm> {
         onSaved: (value) => _email = value!.trim(),
         style: const TextStyle(fontWeight: FontWeight.w600),
         decoration: const InputDecoration(
-          prefixIcon: const Icon(Icons.mail),
+          prefixIcon: Icon(Icons.mail),
           labelText: 'Email',
         ),
         keyboardType: TextInputType.emailAddress,

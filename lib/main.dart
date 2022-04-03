@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:update_yro/flavour.dart';
 import 'package:provider/provider.dart';
 import 'package:update_yro/pages/loginpage.dart';
-import 'pages/testpage.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(Provider<Flavour>.value(value: Flavour.dev, child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   // Create the initialization Future outside of `build`:
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> _initialization =
+      Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   MyApp({Key? key}) : super(key: key);
 
