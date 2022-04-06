@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:update_yro/widgets/card.dart';
 import 'package:update_yro/widgets/card1.dart';
+import 'package:update_yro/widgets/divisionwidget.dart';
 
 class AddFirestoreData extends StatelessWidget {
   const AddFirestoreData({Key? key}) : super(key: key);
@@ -63,7 +64,7 @@ class MobileNavbar extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-          child: Card1(),
+          child: DivisionWidget(), //Card1(),
         ),
         Positioned(
           top: -4,
