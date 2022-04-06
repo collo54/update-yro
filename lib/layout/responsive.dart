@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:update_yro/widgets/card.dart';
 import 'package:update_yro/widgets/card1.dart';
-import 'package:update_yro/widgets/divisionwidget.dart';
+import '../widgets/divisionwidget.dart';
 
 class AddFirestoreData extends StatelessWidget {
   const AddFirestoreData({Key? key}) : super(key: key);
