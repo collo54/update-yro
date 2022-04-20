@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:update_yro/custom/wrapperbuilder.dart';
 import 'package:update_yro/services/auth_service.dart';
+import 'package:update_yro/services/database_service.dart';
 import 'custom/wrapper.dart';
 import 'firebase_options.dart';
 
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
 }
 
 final authenticate = Provider((ref) => AuthService());
+final database = Provider((ref) => Databaseservice());
 
 class ShujaaApp extends StatelessWidget {
   const ShujaaApp({Key? key}) : super(key: key);

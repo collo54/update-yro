@@ -32,7 +32,7 @@ class _DivisionWidgetState extends State<DivisionWidget> {
         ..width(350)
         ..height(150)
         ..background.image(
-            url: 'assets/spice5.jpg',
+            url: 'assets/images/spice5.jpg',
             fit: BoxFit.cover) //color(Colors.green.shade800)
         ..borderRadius(all: 8)
         ..ripple(true)

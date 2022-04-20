@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:update_yro/main.dart';
 
 //import 'package:rive/rive.dart';
@@ -94,7 +95,8 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth > 800) {
-          return Row(
+          return Flex(
+            direction: Axis.vertical,
             children: pageChildren(constraints.biggest.width / 2, context),
           );
         } else {
@@ -109,24 +111,17 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
 
   List<Widget> pageChildren(double width, BuildContext context) {
     return <Widget>[
-      /* Container(
-        height: 590,
-        width: width,
-        child: const RiveAnimation.asset(
-          'assets/rive/52-69-marty-animation.riv',
-          fit: BoxFit.cover,
-        ), //Image.asset("assets/images/watsup1.jpeg", fit: BoxFit.cover),
-        //  Image.asset("assets/images/watsup2.jpeg", fit: BoxFit.cover),
-        // Image.asset("assets/images/watsup5.jpeg", fit: BoxFit.cover),
-      ),*/
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: const BoxDecoration(
-            color: Colors.white70,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            )),
+          color: Colors.white70,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
         width: width,
         child: _buildMessage(context),
       ),
@@ -135,22 +130,6 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
 
   Widget _buildMessage(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const Padding(
-        padding: EdgeInsets.only(top: 35, left: 16),
-        child: Text(
-          "shujaa spices",
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 22, color: Colors.black87),
-        ),
-      ),
-      const Padding(
-        padding: EdgeInsets.only(top: 14, left: 16),
-        child: Text(
-          "sign up to continue",
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black45),
-        ),
-      ),
       const SizedBox(
         height: 16,
       ),
@@ -315,7 +294,7 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
         obscureText: true,
         style: const TextStyle(fontWeight: FontWeight.w600),
         decoration: const InputDecoration(
-          prefixIcon: const Icon(Icons.lock_outline_sharp),
+          prefixIcon: Icon(Icons.lock_outline_sharp),
           labelText: 'Password',
         ),
         maxLines: 1,

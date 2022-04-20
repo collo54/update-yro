@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:update_yro/pages/addspice.dart';
 import 'package:update_yro/widgets/card.dart';
 import 'package:update_yro/widgets/card1.dart';
 import '../widgets/divisionwidget.dart';
@@ -72,7 +73,7 @@ class MobileNavbar extends StatelessWidget {
           child: MaterialButton(
             color: Colors.indigo[100],
             shape: const CircleBorder(side: BorderSide.none),
-            onPressed: () {},
+            onPressed: () => AddContributionsPage.show(context),
             child: const Padding(
               padding: EdgeInsets.all(25),
               child: Icon(
