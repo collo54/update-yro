@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:update_yro/constants/colors.dart';
+//import 'package:lottie/lottie.dart';
 import 'package:update_yro/main.dart';
 
 //import 'package:rive/rive.dart';
@@ -19,16 +21,16 @@ class FinalstatefulForm extends ConsumerStatefulWidget {
 
 class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
   final _formKey = GlobalKey<FormState>();
-  EmailSignInFormType _formType = EmailSignInFormType.signIn;
+  // EmailSignInFormType _formType = EmailSignInFormType.signIn;
 
-  late String _email;
-  String? _password;
+  String? _name;
+  // String? _password;
 
   String? phoneNo, smsCode;
 
   bool codeSent = false;
 
-  void _toogleFormType() {
+  /*void _toogleFormType() {
     setState(() {
       _formType = _formType == EmailSignInFormType.signIn
           ? EmailSignInFormType.register
@@ -36,7 +38,7 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
     });
     final form = _formKey.currentState!;
     form.reset();
-  }
+  }*/
 
   //A future asynchronous field that implements authservice to sign in anonymously when
   // user clicks anonymous button
@@ -52,7 +54,7 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
 
 //A future asynchronous field that implements authservice to sign in with google when
 // user clicks google button
-  Future<void> _signInWithGoogle(BuildContext context) async {
+  /* Future<void> _signInWithGoogle(BuildContext context) async {
     try {
       final auth = ref.read(authenticate);
       final user = await auth.signInWithGoogle();
@@ -60,11 +62,11 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
     } catch (e) {
       print(e.toString());
     }
-  }
+  }*/
 
 //A future asynchronous field that implements authservice to create user or log in with email
 //when user clicks email button button
-  Future<void> _submit(BuildContext context) async {
+  /* Future<void> _submit(BuildContext context) async {
     try {
       if ((_formType == EmailSignInFormType.signIn) &&
           (_validateAndSaveForm())) {
@@ -80,14 +82,21 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
       print(e.toString());
     }
   }
-
-  bool _validateAndSaveForm() {
+  
+    bool _validateAndSaveForm() {
     final form = _formKey.currentState!;
     if (form.validate()) {
       form.save();
       return true;
     }
     return false;
+  }
+ */
+
+  Future<void> _submit(BuildContext context) async {
+    try {} catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -112,14 +121,13 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
   List<Widget> pageChildren(double width, BuildContext context) {
     return <Widget>[
       Container(
+        // color: Colors.white70,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: const BoxDecoration(
-          color: Colors.white70,
+          color: Color.fromARGB(255, 255, 255, 255),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20),
           ),
         ),
         width: width,
@@ -134,6 +142,22 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
         height: 16,
       ),
       Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Text(
+          'what is your first name',
+          style: GoogleFonts.acme(
+            textStyle: const TextStyle(
+              color: Color.fromARGB(255, 37, 37, 37),
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: _buildForm()),
       const SizedBox(
@@ -146,27 +170,20 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
   }
 
   Widget _buildButtons(BuildContext context) {
-    final primaryText = _formType == EmailSignInFormType.signIn
-        ? 'Sign in'
-        : 'Create an account';
-    final secondaryText = _formType == EmailSignInFormType.signIn
-        ? 'Need an account? Register'
-        : 'Have an account? Sign in';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         MaterialButton(
           minWidth: 200,
-          color: Colors.green[700],
+          color: kOrange,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(13.0))),
           onPressed: () => _submit(context),
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
             child: Text(
-              primaryText,
-              style: const TextStyle(
+              'start orderng',
+              style: TextStyle(
                   color: Colors.white,
                   fontSize: 15,
                   fontStyle: FontStyle.normal),
@@ -176,24 +193,7 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
         const SizedBox(
           height: 15,
         ),
-        TextButton(
-          onPressed: _toogleFormType,
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
-            child: Text(
-              secondaryText,
-              style: const TextStyle(
-                  color: Colors.green,
-                  fontSize: 15,
-                  fontStyle: FontStyle.normal),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        MaterialButton(
+        /*  MaterialButton(
           minWidth: 200,
           color: Colors.yellow[700],
           shape: const RoundedRectangleBorder(
@@ -241,7 +241,7 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
         ),
         const SizedBox(
           height: 15,
-        ),
+        ),*/
       ],
     );
   }
@@ -264,16 +264,16 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
       TextFormField(
         validator: (value) {
           if (value!.isEmpty) {
-            return 'enter your email';
+            return 'enter your name';
           }
           return null;
         },
         //initialValue: _email,
-        onSaved: (value) => _email = value!.trim(),
+        onSaved: (value) => _name = value!.trim(),
         style: const TextStyle(fontWeight: FontWeight.w600),
         decoration: const InputDecoration(
-          prefixIcon: Icon(Icons.mail),
-          labelText: 'Email',
+          prefixIcon: Icon(Icons.person),
+          labelText: 'enter name',
         ),
         keyboardType: TextInputType.emailAddress,
         maxLines: 2,
@@ -282,7 +282,7 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
       const SizedBox(
         height: 16,
       ),
-      TextFormField(
+      /* TextFormField(
         validator: (value) {
           if (value!.isEmpty) {
             return 'enter your password';
@@ -299,7 +299,7 @@ class _FinalstatefulFormState extends ConsumerState<FinalstatefulForm> {
         ),
         maxLines: 1,
         textAlign: TextAlign.center,
-      ),
+      ),*/
       const SizedBox(
         height: 8,
       ),

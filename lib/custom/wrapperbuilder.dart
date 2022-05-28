@@ -19,6 +19,6 @@ class WrapperBuilder extends ConsumerWidget {
             return builder(context, snapshot);
           }
           return builder(context, snapshot);
-        });
+        },);
   }
 }

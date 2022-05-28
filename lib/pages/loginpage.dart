@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:update_yro/constants/colors.dart';
+import 'package:update_yro/layout/imageres.dart';
 import 'package:update_yro/layout/loginform.dart';
 
 class Loginpage extends StatelessWidget {
@@ -7,10 +9,13 @@ class Loginpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 202, 184, 214),
+      backgroundColor: kOrange,
       body: SingleChildScrollView(
         child: Column(
-          children: const <Widget>[FinalstatefulForm()],
+          children: const <Widget>[
+            Imagecontent(),
+            FinalstatefulForm(),
+          ],
         ),
       ),
     );

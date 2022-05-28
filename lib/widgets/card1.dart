@@ -11,7 +11,7 @@ class Card1 extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           image: const DecorationImage(
-              image: AssetImage('assets/spice5.jpg'), fit: BoxFit.cover),
+              image: AssetImage('assets/images/spice5.jpg'), fit: BoxFit.cover),
           borderRadius: BorderRadius.circular(20),
           gradient: LinearGradient(
             begin: Alignment.topCenter,
