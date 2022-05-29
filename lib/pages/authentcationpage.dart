@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:update_yro/constants/colors.dart';
-import 'package:update_yro/layout/imageres.dart';
-import 'package:update_yro/layout/loginform.dart';
+import 'package:update_yro/layout/authentication_form_layout.dart';
+import 'package:update_yro/layout/image_layout.dart';
 
-class Loginpage extends StatelessWidget {
-  const Loginpage({Key? key}) : super(key: key);
+class AuthenticationPage extends StatelessWidget {
+  const AuthenticationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class Loginpage extends StatelessWidget {
         child: Column(
           children: const <Widget>[
             Imagecontent(),
-            FinalstatefulForm(),
+            AuthenticationForm(),
           ],
         ),
       ),

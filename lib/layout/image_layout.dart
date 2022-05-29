@@ -6,7 +6,7 @@ class Imagecontent extends StatelessWidget {
   List<Widget> pageChildren(double width) {
     return <Widget>[
       Container(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: const BoxDecoration(
             color: Color.fromARGB(0, 233, 162, 95),
             borderRadius: BorderRadius.only(
@@ -15,12 +15,10 @@ class Imagecontent extends StatelessWidget {
             )),
         width: width,
         height: 469,
-        child: Center(
-          child: Image.asset(
-            'assets/images/spice3.jpg',
-            width: 260,
-            height: 301,
-          ),
+        child: Image.asset(
+          'assets/images/spice3.jpg',
+          width: 260,
+          height: 301,
         ),
       ),
     ];

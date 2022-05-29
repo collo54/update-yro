@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:update_yro/layout/responsive.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -7,12 +6,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 202, 184, 214),
+      backgroundColor: const Color.fromARGB(255, 255, 254, 255),
       body: SingleChildScrollView(
         child: Column(
-          children: const <Widget>[
-            AddFirestoreData(),
-          ],
+          children: const <Widget>[],
         ),
       ),
     );
