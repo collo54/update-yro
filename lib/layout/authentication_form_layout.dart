@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:update_yro/constants/colors.dart';
 //import 'package:lottie/lottie.dart';
 import 'package:update_yro/main.dart';
+import 'package:update_yro/pages/homepage.dart';
 
 //import 'package:rive/rive.dart';
 //import 'package:yro/constants/colors.dart';
@@ -37,7 +38,12 @@ class _AuthenticationFormState extends ConsumerState<AuthenticationForm> {
   }
 
   Future<void> _submit() async {
-    try {} catch (e) {
+    try {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    } catch (e) {
       print(e.toString());
     }
   }
