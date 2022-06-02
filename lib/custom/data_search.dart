@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:update_yro/widgets/card1.dart';
+import 'package:update_yro/constants/colors.dart';
+import 'package:update_yro/widgets/spice_card.dart';
 
 class DataSearch extends SearchDelegate<String> {
   final spices = [
@@ -39,7 +40,12 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Card1();
+    return const SpiceCard1(
+      imageurl: 'assets/images/spice3.jpg',
+      price: '200 per kg',
+      spice: 'cayyene pepper',
+      color: kwhite,
+    );
   }
 
   @override

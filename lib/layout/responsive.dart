@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:update_yro/pages/addspice.dart';
-import 'package:update_yro/widgets/card.dart';
-import 'package:update_yro/widgets/card1.dart';
+import 'package:update_yro/widgets/spice_card2.dart';
+import 'package:update_yro/widgets/spice_card.dart';
 import '../widgets/divisionwidget.dart';
 
 class AddFirestoreData extends StatelessWidget {
@@ -34,9 +34,9 @@ class DesktopNavbar extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Card2(),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(),
         ),
         MaterialButton(
           color: Colors.indigo[100],

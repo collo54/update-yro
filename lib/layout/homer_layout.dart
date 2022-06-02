@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:update_yro/constants/colors.dart';
 import 'package:update_yro/custom/data_search.dart';
-import 'package:update_yro/widgets/spice_card.dart';
 
-import '../widgets/spice_card2.dart';
-
-class Homecontent extends StatelessWidget {
-  const Homecontent({Key? key}) : super(key: key);
+class Homercontent extends StatelessWidget {
+  const Homercontent({Key? key}) : super(key: key);
 
   List<Widget> pageChildren(double width, BuildContext context) {
     return <Widget>[
@@ -76,17 +73,12 @@ class Homecontent extends StatelessWidget {
                     ),
                   ],
                 ),
-                Card(
-                  shape: const CircleBorder(),
-                  shadowColor: klabeltext,
-                  elevation: 10,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: IconButton(
-                      icon: const Icon(Icons.shopping_basket_rounded,
-                          color: kOrange),
-                      onPressed: () {},
-                    ),
+                //const SizedBox(width: 100),
+                const CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    Icons.shopping_basket_rounded,
+                    color: kOrange,
                   ),
                 ),
               ],
@@ -273,250 +265,6 @@ class Homecontent extends StatelessWidget {
                 topRight: Radius.circular(1),
                 bottomLeft: Radius.circular(1),
                 bottomRight: Radius.circular(1),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Recommended spices',
-                  style: GoogleFonts.acme(
-                    height: 1.6,
-                    textStyle: const TextStyle(
-                      color: kwelcomejim,
-                      fontSize: 18,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                const SizedBox(
-                  width: 60,
-                  child: Divider(
-                    height: 13,
-                    thickness: 3,
-                    indent: 0,
-                    endIndent: 0,
-                    color: kOrange,
-                  ),
-                ),
-              ],
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 3,
-          ),
-          child: Container(
-            height: 190,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                Card(
-                  elevation: 10,
-                  child: SpiceCard1(
-                    imageurl: 'assets/images/spice3.jpg',
-                    price: '200 per kg',
-                    spice: 'cayyene pepper',
-                    color: kwhite,
-                  ),
-                  shadowColor: klabeltext,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Card(
-                  elevation: 10,
-                  child: SpiceCard1(
-                    imageurl: 'assets/images/spice3.jpg',
-                    price: '150 per kg',
-                    spice: 'Basil leaves',
-                    color: kwhite,
-                  ),
-                  shadowColor: klabeltext,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Card(
-                  elevation: 10,
-                  child: SpiceCard1(
-                    imageurl: 'assets/images/spice3.jpg',
-                    price: '200 per kg',
-                    spice: 'curry',
-                    color: kwhite,
-                  ),
-                  shadowColor: klabeltext,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Card(
-                  elevation: 10,
-                  child: SpiceCard1(
-                    imageurl: 'assets/images/spice3.jpg',
-                    price: '200 per kg',
-                    spice: 'lavender',
-                    color: kwhite,
-                  ),
-                  shadowColor: klabeltext,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Card(
-                  elevation: 10,
-                  child: SpiceCard1(
-                    imageurl: 'assets/images/spice3.jpg',
-                    price: '200 per kg',
-                    spice: 'pepper',
-                    color: kwhite,
-                  ),
-                  shadowColor: klabeltext,
-                ),
-              ],
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 2, right: 2, top: 30),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hottest',
-                  style: GoogleFonts.acme(
-                    height: 1.9,
-                    textStyle: const TextStyle(
-                      color: kwelcomejim,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  'popular',
-                  style: GoogleFonts.acme(
-                    height: 1.9,
-                    textStyle: const TextStyle(
-                      color: kpopular,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 3,
-          ),
-          child: Container(
-            height: 153,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                Card(
-                  elevation: 10,
-                  child: SpiceCard2(
-                    imageurl: 'assets/images/spice3.jpg',
-                    price: '200 per kg',
-                    spice: 'curry',
-                    color: klightcayyene,
-                  ),
-                  shadowColor: klabeltext,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Card(
-                  elevation: 10,
-                  child: SpiceCard2(
-                    imageurl: 'assets/images/spice3.jpg',
-                    price: '100 per kg',
-                    spice: 'lavender',
-                    color: klightlavender,
-                  ),
-                  shadowColor: klabeltext,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Card(
-                  elevation: 10,
-                  child: SpiceCard2(
-                    imageurl: 'assets/images/spice3.jpg',
-                    price: '150 per kg',
-                    spice: 'pepper',
-                    color: klightpersley,
-                  ),
-                  shadowColor: klabeltext,
-                ),
-              ],
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
               ),
             ),
           ),
