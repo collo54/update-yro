@@ -9,6 +9,14 @@ class AddCartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        iconTheme: const IconThemeData(
+          color: kwhite,
+          size: 36,
+        ),
+        backgroundColor: kOrange,
+      ),
       backgroundColor: kOrange,
       body: SingleChildScrollView(
         child: Column(

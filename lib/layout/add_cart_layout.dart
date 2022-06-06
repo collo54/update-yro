@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/colors.dart';
+import '../pages/order_list_page.dart';
 
 class AddCart extends StatefulWidget {
   const AddCart({Key? key}) : super(key: key);
@@ -190,7 +191,13 @@ class _AddCartState extends State<AddCart> {
               color: kOrange,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(9.0))),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const OrderListPage()),
+                );
+              },
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
                 child: Text(

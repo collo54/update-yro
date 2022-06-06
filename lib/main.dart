@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:update_yro/constants/colors.dart';
 import 'package:update_yro/custom/wrapperbuilder.dart';
 import 'package:update_yro/services/auth_service.dart';
 import 'package:update_yro/services/database_service.dart';
@@ -67,7 +68,7 @@ class ShujaaApp extends StatelessWidget {
             // or simply save your changes to "hot reload" in a Flutter IDE).
             // Notice that the counter didn't reset back to zero; the application
             // is not restarted.
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.orange,
           ),
           home: Wrapper(
             userSnapshot: userSnapshot,
@@ -86,7 +87,7 @@ class SomethingWentWrong extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.teal,
+        backgroundColor: kOrange,
         body: Center(
           child: Text('error'),
         ),
@@ -102,10 +103,10 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.teal,
+        backgroundColor: kOrange,
         body: Center(
           child: CircularProgressIndicator(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
