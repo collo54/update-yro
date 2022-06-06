@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Imagecontent extends StatelessWidget {
-  const Imagecontent({Key? key}) : super(key: key);
+class ImageSpiceCart extends StatelessWidget {
+  const ImageSpiceCart({Key? key}) : super(key: key);
 
   List<Widget> pageChildren(double width) {
     return <Widget>[
       Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
-          vertical: 10,
+          vertical: 25,
         ),
         decoration: const BoxDecoration(
           color: Color.fromARGB(0, 233, 162, 95),
@@ -18,11 +18,11 @@ class Imagecontent extends StatelessWidget {
           ),
         ),
         width: width,
-        height: 469,
+        height: 226,
         child: Image.asset(
           'assets/images/spice3.jpg',
-          width: 260,
-          height: 301,
+          width: 183,
+          height: 176,
         ),
       ),
     ];

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:update_yro/constants/colors.dart';
 import 'package:update_yro/custom/data_search.dart';
+import 'package:update_yro/pages/add_cart_page.dart';
 import 'package:update_yro/widgets/spice_card.dart';
 
 import '../widgets/spice_card2.dart';
@@ -336,21 +338,30 @@ class Homecontent extends StatelessWidget {
             height: 190,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: const [
-                Card(
-                  elevation: 10,
-                  child: SpiceCard1(
-                    imageurl: 'assets/images/spice3.jpg',
-                    price: '200 per kg',
-                    spice: 'cayyene pepper',
-                    color: kwhite,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddCartPage()),
+                    );
+                  },
+                  child: const Card(
+                    elevation: 10,
+                    child: SpiceCard1(
+                      imageurl: 'assets/images/spice3.jpg',
+                      price: '200 per kg',
+                      spice: 'cayyene pepper',
+                      color: kwhite,
+                    ),
+                    shadowColor: klabeltext,
                   ),
-                  shadowColor: klabeltext,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
-                Card(
+                const Card(
                   elevation: 10,
                   child: SpiceCard1(
                     imageurl: 'assets/images/spice3.jpg',
@@ -360,10 +371,10 @@ class Homecontent extends StatelessWidget {
                   ),
                   shadowColor: klabeltext,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
-                Card(
+                const Card(
                   elevation: 10,
                   child: SpiceCard1(
                     imageurl: 'assets/images/spice3.jpg',
@@ -373,10 +384,10 @@ class Homecontent extends StatelessWidget {
                   ),
                   shadowColor: klabeltext,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
-                Card(
+                const Card(
                   elevation: 10,
                   child: SpiceCard1(
                     imageurl: 'assets/images/spice3.jpg',
@@ -386,10 +397,10 @@ class Homecontent extends StatelessWidget {
                   ),
                   shadowColor: klabeltext,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
-                Card(
+                const Card(
                   elevation: 10,
                   child: SpiceCard1(
                     imageurl: 'assets/images/spice3.jpg',

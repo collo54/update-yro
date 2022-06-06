@@ -20,3 +20,4 @@ const Color kpopular = Color.fromRGBO(37, 63, 102, 0.4);
 const Color klightpersley = Color.fromRGBO(254, 244, 244, 1);
 const Color klightcayyene = Color.fromRGBO(255, 252, 242, 1);
 const Color klightlavender = Color.fromRGBO(241, 239, 246, 1);
+const Color klightorange = Color.fromRGBO(255, 247, 240, 1);
