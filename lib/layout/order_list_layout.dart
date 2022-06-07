@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:update_yro/constants/colors.dart';
+import 'package:update_yro/pages/delivery_details_page.dart';
 import 'package:update_yro/widgets/order_item.dart';
 import 'package:update_yro/widgets/order_item1.dart';
 
@@ -59,20 +60,20 @@ class _OrderListLayoutState extends State<OrderListLayout> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //use orderitem1 instead!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        OrderItem(
+        OrderItem1(
             price: '200 KES PER KG',
-            spice: 'cumin',
+            spice: 'cayenne pepper',
             imageurl: 'assets/images/spice3.jpg',
             color: klightlavender,
             quantity: '4 KG'),
-        OrderItem(
+        OrderItem1(
           price: '150 KES PER KG',
           spice: ' pepper',
           imageurl: 'assets/images/spice3.jpg',
           color: klightlavender,
           quantity: '1 kg',
         ),
-        OrderItem(
+        OrderItem1(
           price: '150 KES PER KG',
           spice: ' lavender',
           imageurl: 'assets/images/spice3.jpg',
@@ -120,11 +121,16 @@ class _OrderListLayoutState extends State<OrderListLayout> {
           width: 20,
         ),
         MaterialButton(
-          minWidth: 200,
+          //minWidth: 132,
           color: kOrange,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(9.0))),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DeliveryDetailsPage()),
+            );
+          },
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
             child: Text(

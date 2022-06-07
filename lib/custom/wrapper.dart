@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:update_yro/models/usermodel.dart';
 import 'package:update_yro/pages/homepage.dart';
 
+import '../pages/order_complete_page.dart';
+import '../pages/order_list_page.dart';
 import '../pages/welcome_page.dart';
 
 class Wrapper extends StatelessWidget {

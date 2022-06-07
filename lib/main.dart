@@ -87,7 +87,7 @@ class SomethingWentWrong extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        backgroundColor: kOrange,
+        backgroundColor: kwhite,
         body: Center(
           child: Text('error'),
         ),
@@ -103,10 +103,10 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        backgroundColor: kOrange,
+        backgroundColor: kwhite,
         body: Center(
           child: CircularProgressIndicator(
-            color: Colors.white,
+            color: kOrange,
           ),
         ),
       ),

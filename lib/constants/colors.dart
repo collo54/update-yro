@@ -23,3 +23,7 @@ const Color klightlavender = Color.fromRGBO(241, 239, 246, 1);
 const Color klightorange = Color.fromRGBO(255, 247, 240, 1);
 const Color ktextorder = Color.fromRGBO(51, 51, 51, 1);
 const Color klightwhite = Color.fromRGBO(250, 250, 250, 1);
+const Color klightorange1 = Color.fromRGBO(252, 246, 240, 1);
+const Color kgreen = Color.fromRGBO(10, 160, 110, 1);
+const Color klgreen = Color.fromRGBO(50, 186, 124, 1);
+const Color klightgreen = Color.fromRGBO(224, 255, 229, 1);

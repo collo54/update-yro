@@ -6,6 +6,7 @@ import 'package:update_yro/custom/data_search.dart';
 import 'package:update_yro/pages/add_cart_page.dart';
 import 'package:update_yro/widgets/spice_card.dart';
 
+import '../pages/order_list_page.dart';
 import '../widgets/spice_card2.dart';
 
 class Homecontent extends StatelessWidget {
@@ -87,7 +88,14 @@ class Homecontent extends StatelessWidget {
                     child: IconButton(
                       icon: const Icon(Icons.shopping_basket_rounded,
                           color: kOrange),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OrderListPage(),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
