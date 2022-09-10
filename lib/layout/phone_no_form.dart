@@ -3,26 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:update_yro/constants/colors.dart';
-import 'package:update_yro/pages/add_phone_no_page.dart';
-import 'package:update_yro/pages/homepage.dart';
+import 'package:update_yro/pages/add_sms_verification_page.dart';
 
 import '../services/auth_service.dart';
 
-enum EmailSignInFormType { signIn, register }
-
-class AuthenticationForm extends StatefulWidget {
-  const AuthenticationForm({Key? key}) : super(key: key);
+class PhoneNoForm extends StatefulWidget {
+  const PhoneNoForm({Key? key}) : super(key: key);
 
   @override
-  _AuthenticationFormState createState() => _AuthenticationFormState();
+  _PhoneNoFormState createState() => _PhoneNoFormState();
 }
 
-class _AuthenticationFormState extends State<AuthenticationForm> {
+class _PhoneNoFormState extends State<PhoneNoForm> {
   final _formKey = GlobalKey<FormState>();
 
-  String? _name;
+  late String _name;
 
-  String string(String name) {
+/*  String string(String name) {
     if (_name != null) {
       setState(() {
         name = _name!;
@@ -30,6 +27,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     }
     return name;
   }
+  */
 
   bool _validateAndSaveForm() {
     final form = _formKey.currentState!;
@@ -41,59 +39,23 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     return false;
   }
 
-  //A future asynchronous field that implements authservice to sign in anonymously when
-  // user clicks anonymous button
-  Future<void> _signInAnonymously() async {
+  Future<void> _signInphone() async {
     //if (_validateAndSaveForm()) {}
-
-    try {
-      final auth = Provider.of<AuthService>(context, listen: false);
-      final user = await auth.signInAnonymously();
-      if (kDebugMode) {
-        print('uid: ${user!.uid}');
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
-  }
-
-  Future<void> _signInwithFacebook() async {
-    //if (_validateAndSaveForm()) {}
-
-    try {
-      final auth = Provider.of<AuthService>(context, listen: false);
-      final user = await auth.signInWithFacebook();
-      if (kDebugMode) {
-        print('uid: ${user!.uid}');
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
   }
 
   Future<void> _submit() async {
-    try {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future<void> _submit1() async {
-    try {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const AddPhonenoPage()),
-      );
-    } catch (e) {
-      print(e.toString());
+    if (_validateAndSaveForm()) {
+      try {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => AddSmsVerificationPage(phoneno: _name)),
+        );
+      } catch (e) {
+        if (kDebugMode) {
+          print(e.toString());
+        }
+      }
     }
   }
 
@@ -144,7 +106,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            'welcome choose service',
+            'phone number',
             style: GoogleFonts.acme(
               textStyle: const TextStyle(
                 color: Color.fromARGB(255, 37, 37, 37),
@@ -157,23 +119,17 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         const SizedBox(
           height: 10,
         ),
-        /* Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: _buildForm()),
-        const SizedBox(
-          height: 15,
-        ),*/
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: _buildButtons()),
+            child: _buildForm()),
         const SizedBox(
           height: 15,
         ),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: _buildButtons2()),
+            child: _buildButtons()),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
       ],
     );
@@ -187,12 +143,13 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           minWidth: 200,
           color: kOrange,
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(13.0))),
-          onPressed: () => _signInAnonymously(),
+            borderRadius: BorderRadius.all(Radius.circular(13.0)),
+          ),
+          onPressed: () => _submit(),
           child: const Padding(
             padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
             child: Text(
-              'quick order',
+              'phone number',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 15,
@@ -202,62 +159,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         ),
         const SizedBox(
           height: 15,
-        ),
-        TextButton(
-          onPressed: () {}, // _toogleFormType,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
-            child: Text(
-              'or continue with',
-              style: TextStyle(
-                  color: Color.fromARGB(255, 113, 124, 114),
-                  fontSize: 15,
-                  fontStyle: FontStyle.normal),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildButtons2() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        MaterialButton(
-          color: Colors.white,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(13.0)),
-          ),
-          onPressed: () {}, //_signInWithGoogle(context),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Image.asset("assets/images/google-logo.png"),
-          ),
-        ),
-        MaterialButton(
-          color: Colors.white,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(13.0)),
-          ),
-          onPressed: () => _signInwithFacebook(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Image.asset("assets/images/icons8-facebook-f-30.png"),
-          ),
-        ),
-        MaterialButton(
-          color: Colors.white,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(13.0)),
-          ),
-          onPressed: () {
-            _submit1();
-          },
-          child: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Icon(Icons.phone),
-          ),
         ),
       ],
     );
@@ -281,17 +182,17 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
       TextFormField(
         validator: (value) {
           if (value!.isEmpty) {
-            return 'enter your name';
+            return 'enter your phone number';
           }
           return null;
         },
         //initialValue: _name,
-        onSaved: (value) => _name = value,
+        onSaved: (value) => _name = value!,
         style: const TextStyle(fontWeight: FontWeight.w600),
         decoration: InputDecoration(
           fillColor: ktextfill,
           filled: true,
-          labelText: 'enter name',
+          labelText: '+254 743397176',
           labelStyle: const TextStyle(color: klabeltext),
           border: OutlineInputBorder(
             borderSide: BorderSide.none,

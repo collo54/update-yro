@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:update_yro/main.dart';
+import 'package:provider/provider.dart';
 import 'package:update_yro/models/spicemodel.dart';
 import 'package:update_yro/pages/homepage.dart';
 import 'package:update_yro/services/database_service.dart';
 
-class AddContributionsPage extends ConsumerStatefulWidget {
+class AddContributionsPage extends StatefulWidget {
   const AddContributionsPage({Key? key, this.spicemodel}) : super(key: key);
   final SpiceModel? spicemodel;
 
@@ -24,7 +23,7 @@ class AddContributionsPage extends ConsumerStatefulWidget {
   _AddContributionsPageState createState() => _AddContributionsPageState();
 }
 
-class _AddContributionsPageState extends ConsumerState<AddContributionsPage> {
+class _AddContributionsPageState extends State<AddContributionsPage> {
   final _formKey = GlobalKey<FormState>();
 
   String? _spice;
@@ -53,9 +52,10 @@ class _AddContributionsPageState extends ConsumerState<AddContributionsPage> {
         time: id,
         spice: _spice,
       );
-      final firestoreservice = ref.read(database);
+      final firestoreservice =
+          Provider.of<Databaseservice>(context, listen: false);
 
-      await firestoreservice.setContibutor(contributor);
+      // await firestoreservice.setContibutor(contributor);
       await Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const HomePage(),

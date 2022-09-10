@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:update_yro/constants/colors.dart';
 import 'package:update_yro/custom/data_search.dart';
@@ -10,7 +9,8 @@ import '../pages/order_list_page.dart';
 import '../widgets/spice_card2.dart';
 
 class Homecontent extends StatelessWidget {
-  const Homecontent({Key? key}) : super(key: key);
+  const Homecontent({Key? key, this.name}) : super(key: key);
+  final String? name;
 
   List<Widget> pageChildren(double width, BuildContext context) {
     return <Widget>[
@@ -66,16 +66,31 @@ class Homecontent extends StatelessWidget {
                     const SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      'Welcome, jim',
-                      style: GoogleFonts.acme(
-                        height: 1.7,
-                        textStyle: const TextStyle(
-                          color: kwelcomejim,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
+                    Row(
+                      children: [
+                        Text(
+                          'Welcome, ',
+                          style: GoogleFonts.acme(
+                            height: 1.7,
+                            textStyle: const TextStyle(
+                              color: kwelcomejim,
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
                         ),
-                      ),
+                        Text(
+                          name ?? '',
+                          style: GoogleFonts.acme(
+                            height: 1.7,
+                            textStyle: const TextStyle(
+                              color: kwelcomejim,
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

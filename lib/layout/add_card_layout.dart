@@ -92,7 +92,7 @@ class _AddCardLayoutState extends State<AddCardLayout> {
         ),
       ),
       const SizedBox(
-        height: 10,
+        height: 30,
       ),
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),

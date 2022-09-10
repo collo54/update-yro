@@ -1,24 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:update_yro/models/usermodel.dart';
+import 'package:provider/provider.dart';
 
-import '../main.dart';
+import '../models/usermodel.dart';
+import '../services/auth_service.dart';
+import '../services/database_service.dart';
 
-class WrapperBuilder extends ConsumerWidget {
+class WrapperBuilder extends StatelessWidget {
   const WrapperBuilder({Key? key, required this.builder}) : super(key: key);
   final Widget Function(BuildContext, AsyncSnapshot<Userre?>) builder;
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final auth = ref.read(authenticate);
+  Widget build(BuildContext context) {
+    final auth = Provider.of<AuthService>(context, listen: false);
 
     return StreamBuilder<Userre?>(
         stream: auth.onAuthStateChanged,
         builder: (context, snapshot) {
           final user = snapshot.data;
           if (user != null) {
-            return builder(context, snapshot);
+            return MultiProvider(
+              providers: [
+                Provider<Userre>.value(value: user),
+                Provider<Databaseservice>(
+                  create: (_) => Databaseservice(uid: user.uid!),
+                ),
+
+                /*Provider<ImagePickerService>(
+                  create: (_) => ImagePickerService(),
+                ),
+                Provider<FirebaseStorageService>(
+                  create: (_) => FirebaseStorageService(uid: user.uid!),
+                ),
+                */
+              ],
+              child: builder(context, snapshot), //HomePage(),
+            );
           }
-          return builder(context, snapshot);
-        },);
+          return builder(context, snapshot); //LandingPage();
+        });
   }
 }

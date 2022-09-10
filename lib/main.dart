@@ -1,17 +1,26 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:update_yro/constants/colors.dart';
 import 'package:update_yro/custom/wrapperbuilder.dart';
 import 'package:update_yro/services/auth_service.dart';
-import 'package:update_yro/services/database_service.dart';
 import 'custom/wrapper.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(ProviderScope(child: MyApp()));
+  if (kIsWeb) {
+    // initialiaze the facebook javascript SDK
+    await FacebookAuth.i.webInitialize(
+      appId: "406567374718924",
+      cookie: true,
+      xfbml: true,
+      version: "v13.0",
+    );
+  }
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -44,8 +53,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final authenticate = Provider((ref) => AuthService());
-final database = Provider((ref) => Databaseservice());
+//final authenticate = Provider((ref) => AuthService());
+//final database = Provider((ref) => Databaseservice());
 
 class ShujaaApp extends StatelessWidget {
   const ShujaaApp({Key? key}) : super(key: key);
@@ -53,29 +62,25 @@ class ShujaaApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return WrapperBuilder(
-      builder: (context, userSnapshot) {
-        return MaterialApp(
-          title: 'shujaa update',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            // This is the theme of your application.
-            //
-            // Try running your application with "flutter run". You'll see the
-            // application has a blue toolbar. Then, without quitting the app, try
-            // changing the primarySwatch below to Colors.green and then invoke
-            // "hot reload" (press "r" in the console where you ran "flutter run",
-            // or simply save your changes to "hot reload" in a Flutter IDE).
-            // Notice that the counter didn't reset back to zero; the application
-            // is not restarted.
-            primarySwatch: Colors.orange,
-          ),
-          home: Wrapper(
-            userSnapshot: userSnapshot,
-          ), //const Loginpage(),
-          //const HomePage(),
-        );
-      },
+    return MultiProvider(
+      providers: [
+        Provider<AuthService>(
+          create: (_) => AuthService(),
+        ),
+      ],
+      child: WrapperBuilder(
+        builder: (context, userSnapshot) {
+          return MaterialApp(
+            // navigatorKey: navigatorKey,
+            title: 'shujaa spice',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(primarySwatch: Colors.orange),
+            home: Wrapper(
+              userSnapshot: userSnapshot,
+            ),
+          );
+        },
+      ),
     );
   }
 }
