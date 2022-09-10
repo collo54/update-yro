@@ -80,6 +80,7 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
       setState(() {
         _result = user;
       });
+      print(widget.phone);
     } catch (e) {
       print(e.toString());
     }
@@ -134,7 +135,7 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            'welcome choose service',
+            'SMS OTP',
             style: GoogleFonts.acme(
               textStyle: const TextStyle(
                 color: Color.fromARGB(255, 37, 37, 37),
@@ -209,7 +210,7 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
       TextFormField(
         validator: (value) {
           if (value!.isEmpty) {
-            return 'enter your name';
+            return 'enter sent otp';
           }
           return null;
         },
@@ -219,7 +220,7 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
         decoration: InputDecoration(
           fillColor: ktextfill,
           filled: true,
-          labelText: 'enter name',
+          labelText: 'enter sms otp',
           labelStyle: const TextStyle(color: klabeltext),
           border: OutlineInputBorder(
             borderSide: BorderSide.none,

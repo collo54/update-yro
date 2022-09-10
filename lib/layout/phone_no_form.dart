@@ -49,7 +49,8 @@ class _PhoneNoFormState extends State<PhoneNoForm> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => AddSmsVerificationPage(phoneno: _name)),
+              builder: (context) => AddSmsVerificationPage(
+                  phoneno: _name.replaceFirst(RegExp('0'), '+254', 0))),
         );
       } catch (e) {
         if (kDebugMode) {
@@ -192,7 +193,7 @@ class _PhoneNoFormState extends State<PhoneNoForm> {
         decoration: InputDecoration(
           fillColor: ktextfill,
           filled: true,
-          labelText: '+254 743397176',
+          labelText: '0712345678',
           labelStyle: const TextStyle(color: klabeltext),
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
