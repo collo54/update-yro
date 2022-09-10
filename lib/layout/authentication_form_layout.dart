@@ -4,11 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:update_yro/constants/colors.dart';
 import 'package:update_yro/pages/add_phone_no_page.dart';
-import 'package:update_yro/pages/homepage.dart';
+import 'package:update_yro/pages/email_sign_in_page.dart';
 
 import '../services/auth_service.dart';
-
-enum EmailSignInFormType { signIn, register }
 
 class AuthenticationForm extends StatefulWidget {
   const AuthenticationForm({Key? key}) : super(key: key);
@@ -44,8 +42,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   //A future asynchronous field that implements authservice to sign in anonymously when
   // user clicks anonymous button
   Future<void> _signInAnonymously() async {
-    //if (_validateAndSaveForm()) {}
-
     try {
       final auth = Provider.of<AuthService>(context, listen: false);
       final user = await auth.signInAnonymously();
@@ -60,8 +56,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
   }
 
   Future<void> _signInwithFacebook() async {
-    //if (_validateAndSaveForm()) {}
-
     try {
       final auth = Provider.of<AuthService>(context, listen: false);
       final user = await auth.signInWithFacebook();
@@ -75,25 +69,29 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     }
   }
 
-  Future<void> _submit() async {
+  Future<void> _signinWithEmailandPassword() async {
     try {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const EmailSignInpage()),
       );
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
-  Future<void> _submit1() async {
+  Future<void> _signinWithPhonenumber() async {
     try {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const AddPhonenoPage()),
       );
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
@@ -157,12 +155,6 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         const SizedBox(
           height: 10,
         ),
-        /* Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: _buildForm()),
-        const SizedBox(
-          height: 15,
-        ),*/
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: _buildButtons()),
@@ -240,10 +232,10 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(13.0)),
           ),
-          onPressed: () => _signInwithFacebook(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Image.asset("assets/images/icons8-facebook-f-30.png"),
+          onPressed: _signinWithEmailandPassword,
+          child: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Icon(Icons.email),
           ),
         ),
         MaterialButton(
@@ -251,9 +243,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(13.0)),
           ),
-          onPressed: () {
-            _submit1();
-          },
+          onPressed: _signinWithPhonenumber,
           child: const Padding(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Icon(Icons.phone),

@@ -1,20 +1,35 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:update_yro/constants/colors.dart';
-import 'package:update_yro/pages/add_sms_verification_page.dart';
 
-class PhoneNoForm extends StatefulWidget {
-  const PhoneNoForm({Key? key}) : super(key: key);
+import '../services/auth_service.dart';
+
+enum EmailSignInFormType { signIn, register }
+
+class EmailSignInForm extends StatefulWidget {
+  const EmailSignInForm({Key? key}) : super(key: key);
 
   @override
-  _PhoneNoFormState createState() => _PhoneNoFormState();
+  _EmailSignInFormState createState() => _EmailSignInFormState();
 }
 
-class _PhoneNoFormState extends State<PhoneNoForm> {
+class _EmailSignInFormState extends State<EmailSignInForm> {
   final _formKey = GlobalKey<FormState>();
+  EmailSignInFormType _formType = EmailSignInFormType.signIn;
+  late String _email;
+  late String _password;
 
-  late String _name;
+  void _toogleFormType() {
+    setState(() {
+      _formType = _formType == EmailSignInFormType.signIn
+          ? EmailSignInFormType.register
+          : EmailSignInFormType.signIn;
+    });
+    final form = _formKey.currentState!;
+    form.reset();
+  }
 
   bool _validateAndSaveForm() {
     final form = _formKey.currentState!;
@@ -26,22 +41,47 @@ class _PhoneNoFormState extends State<PhoneNoForm> {
     return false;
   }
 
+  Future<void> _signInwithEmail() async {
+    try {
+      final auth = Provider.of<AuthService>(context, listen: false);
+      final user = await auth.signInWithEmailAndPassword(_email, _password);
+      if (kDebugMode) {
+        print('uid: ${user!.uid}');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
   Future<void> _submit() async {
+    try {
+      if ((_formType == EmailSignInFormType.signIn) &&
+          (_validateAndSaveForm())) {
+        _signInwithEmail();
+      } else if (_validateAndSaveForm()) {
+        final auth = Provider.of<AuthService>(context, listen: false);
+        await auth.createUserWithEmailAndPassword(_email, _password);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+  }
+
+  /* Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       try {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AddSmsVerificationPage(
-                  phoneno: _name.replaceFirst(RegExp('0'), '+254', 0))),
-        );
+        _signInwithEmailandPassword();
       } catch (e) {
         if (kDebugMode) {
           print(e.toString());
         }
       }
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +130,7 @@ class _PhoneNoFormState extends State<PhoneNoForm> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            'phone number',
+            'Email',
             style: GoogleFonts.acme(
               textStyle: const TextStyle(
                 color: Color.fromARGB(255, 37, 37, 37),
@@ -120,6 +160,12 @@ class _PhoneNoFormState extends State<PhoneNoForm> {
   }
 
   Widget _buildButtons() {
+    final primaryText = _formType == EmailSignInFormType.signIn
+        ? 'Sign in'
+        : 'Create an account';
+    final secondaryText = _formType == EmailSignInFormType.signIn
+        ? 'Need an account? Register'
+        : 'Have an account? Sign in';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -130,11 +176,12 @@ class _PhoneNoFormState extends State<PhoneNoForm> {
             borderRadius: BorderRadius.all(Radius.circular(13.0)),
           ),
           onPressed: () => _submit(),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
             child: Text(
-              'phone number',
-              style: TextStyle(
+              primaryText,
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: 15,
                   fontStyle: FontStyle.normal),
@@ -142,7 +189,21 @@ class _PhoneNoFormState extends State<PhoneNoForm> {
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
+        ),
+        TextButton(
+          onPressed: _toogleFormType,
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
+            child: Text(
+              secondaryText,
+              style: const TextStyle(
+                  color: Color.fromARGB(255, 113, 124, 114),
+                  fontSize: 15,
+                  fontStyle: FontStyle.normal),
+            ),
+          ),
         ),
       ],
     );
@@ -166,17 +227,50 @@ class _PhoneNoFormState extends State<PhoneNoForm> {
       TextFormField(
         validator: (value) {
           if (value!.isEmpty) {
-            return 'enter your phone number';
+            return 'enter your email';
           }
           return null;
         },
         //initialValue: _name,
-        onSaved: (value) => _name = value!,
+        onSaved: (value) => _email = value!,
         style: const TextStyle(fontWeight: FontWeight.w600),
         decoration: InputDecoration(
           fillColor: ktextfill,
           filled: true,
-          labelText: '0712345678',
+          labelText: 'email',
+          labelStyle: const TextStyle(color: klabeltext),
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(9.0),
+          ),
+          focusColor: const Color.fromRGBO(243, 242, 242, 1),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+                color: Color.fromRGBO(243, 242, 242, 1), width: 2.0),
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+          hintStyle: const TextStyle(color: klabeltext),
+        ),
+        maxLines: 2,
+        textAlign: TextAlign.center,
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      TextFormField(
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'enter your password';
+          }
+          return null;
+        },
+        //initialValue: _name,
+        onSaved: (value) => _password = value!,
+        style: const TextStyle(fontWeight: FontWeight.w600),
+        decoration: InputDecoration(
+          fillColor: ktextfill,
+          filled: true,
+          labelText: '*******',
           labelStyle: const TextStyle(color: klabeltext),
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
