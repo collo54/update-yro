@@ -3,11 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:update_yro/constants/colors.dart';
 import 'package:update_yro/pages/delivery_details_page.dart';
+import 'package:update_yro/widgets/empty_cart.dart';
 import 'package:update_yro/widgets/order_item1.dart';
 
 import '../models/checkout_product.dart';
 import '../services/database_service.dart';
-import '../widgets/empty_data.dart';
 
 class OrderListLayout extends StatefulWidget {
   const OrderListLayout({Key? key}) : super(key: key);
@@ -246,7 +246,7 @@ class OrderListStream extends StatelessWidget {
               children: children,
             );
           }
-          return const EmptyData2();
+          return const EmptyDataCart();
         }
         if (snapshot.hasError) {
           return const Center(child: Text('error occurred'));
