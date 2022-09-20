@@ -21,6 +21,14 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
-        }
+        },
+        { 
+            "name": "update_yro (debug mode)",
+            "request": "launch",
+            "type": "dart",
+            "args": [ 
+                "--dart-define=adminId=cvcCPNz0UicersMFHpJmtjma3OK2", 
+           ]
+       }
     ]
 }

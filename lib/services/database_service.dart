@@ -53,13 +53,13 @@ class Databaseservice {
   //creates or writes a product for all products collection per user id
   Future<void> setProductAll(CheckoutItem productItem) async {
     await _set(
-        path: DocumentPath.newAllProduct(productItem.id),
+        path: DocumentPath.newAllSpices(productItem.id),
         data: productItem.toMap());
   }
 
   //reads a product from all products collection
   Stream<List<CheckoutItem>> productItemStreamAll() {
-    final path = DocumentPath.streamAllProduct();
+    final path = DocumentPath.streamAllSpices();
     final reference = FirebaseFirestore.instance.collection(path);
     final snapshots = reference.snapshots();
     return snapshots.map((snapshot) => snapshot.docs
@@ -72,7 +72,7 @@ class Databaseservice {
 
   //deletes a doc from all products collection
   Future<void> deleteAllProduct(CheckoutItem productItem) async {
-    final path = DocumentPath.newAllProduct(productItem.id);
+    final path = DocumentPath.newAllSpices(productItem.id);
     final reference = FirebaseFirestore.instance.doc(path);
     if (kDebugMode) {
       print('delete: $path');

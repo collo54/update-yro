@@ -30,7 +30,7 @@ class OrderListPage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: kOrange,
       ),
-      backgroundColor: kOrange,
+      backgroundColor: klightwhite,
       body: SingleChildScrollView(
         child: Column(
           children: const <Widget>[

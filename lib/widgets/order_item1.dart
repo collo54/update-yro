@@ -2,21 +2,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:update_yro/constants/colors.dart';
+import 'dart:math';
 
 class OrderItem1 extends StatelessWidget {
-  const OrderItem1({
+  OrderItem1({
     Key? key,
     required this.price,
     required this.spice,
     required this.imageurl,
-    required this.color,
+    // required this.color,
+    this.callback,
     required this.quantity,
   }) : super(key: key);
   final String? price;
   final String? quantity;
   final String? spice;
   final String? imageurl;
-  final Color? color;
+  //final Color? color;
+  final VoidCallback? callback;
+
+  List<Color> c = [
+    klightlavender,
+    klightcayyene,
+  ];
+
+  Color randomListItem(List lst) => lst[Random().nextInt(c.length)];
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +41,14 @@ class OrderItem1 extends StatelessWidget {
             width: 65,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Image.asset(
+              child: Image.network(
                 imageurl!,
                 width: 51.35,
                 height: 32,
               ),
             ),
             decoration: BoxDecoration(
-              color: color,
+              color: randomListItem(c),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
@@ -108,7 +118,7 @@ class OrderItem1 extends StatelessWidget {
               backgroundColor: klightorange,
               child: IconButton(
                 icon: const Icon(CupertinoIcons.minus, color: kOrange),
-                onPressed: () {},
+                onPressed: callback,
               ),
             ),
           ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class ImageSpiceCart extends StatelessWidget {
-  const ImageSpiceCart({Key? key}) : super(key: key);
+class ImageSpiceLayout extends StatelessWidget {
+  const ImageSpiceLayout({Key? key, required this.url}) : super(key: key);
+  final String? url;
 
   List<Widget> pageChildren(double width) {
     return <Widget>[
@@ -19,8 +20,8 @@ class ImageSpiceCart extends StatelessWidget {
         ),
         width: width,
         height: 226,
-        child: Image.asset(
-          'assets/images/spice3.jpg',
+        child: Image.network(
+          url!,
           width: 183,
           height: 176,
         ),

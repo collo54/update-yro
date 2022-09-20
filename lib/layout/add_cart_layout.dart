@@ -1,18 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
+import '../models/checkout_product.dart';
+import '../models/usermodel.dart';
 import '../pages/order_list_page.dart';
+import '../services/database_service.dart';
 
 class AddCart extends StatefulWidget {
-  const AddCart({Key? key}) : super(key: key);
-
+  const AddCart({
+    Key? key,
+    required this.spicename,
+    required this.price,
+    required this.description,
+    required this.quantity,
+    required this.url,
+  }) : super(key: key);
+  final String? spicename;
+  final double? price;
+  final String? description;
+  final double? quantity;
+  final String? url;
   @override
   State<AddCart> createState() => _AddCartState();
 }
 
 class _AddCartState extends State<AddCart> {
+  double _unit = 1;
+
+  void addUnits() {
+    setState(() {
+      _unit++;
+    });
+  }
+
+  void subtructUnits() {
+    if (_unit > 0) {
+      setState(() {
+        _unit--;
+      });
+    } else if (_unit == 0) {
+      setState(() {
+        _unit = 1;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -51,6 +86,10 @@ class _AddCartState extends State<AddCart> {
   }
 
   _buildcart(BuildContext context) {
+    final userdata = Provider.of<Userre>(context, listen: false);
+    final databaseservice =
+        Provider.of<Databaseservice>(context, listen: false);
+    final String? uid = userdata.uid;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +102,7 @@ class _AddCartState extends State<AddCart> {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: Text(
-              'CUMIN',
+              widget.spicename!,
               style: GoogleFonts.acme(
                 height: 1.3,
                 textStyle: const TextStyle(
@@ -94,7 +133,9 @@ class _AddCartState extends State<AddCart> {
                         child: IconButton(
                           icon:
                               const Icon(CupertinoIcons.minus, color: kOrange),
-                          onPressed: () {},
+                          onPressed: () {
+                            subtructUnits();
+                          },
                         ),
                       ),
                     ),
@@ -102,7 +143,7 @@ class _AddCartState extends State<AddCart> {
                       width: 6,
                     ),
                     Text(
-                      '1',
+                      _unit.toString(),
                       style: GoogleFonts.acme(
                         height: 1.3,
                         textStyle: const TextStyle(
@@ -123,14 +164,16 @@ class _AddCartState extends State<AddCart> {
                         backgroundColor: klightorange,
                         child: IconButton(
                           icon: const Icon(Icons.add, color: kOrange),
-                          onPressed: () {},
+                          onPressed: () {
+                            addUnits();
+                          },
                         ),
                       ),
                     ),
                   ],
                 ),
                 Text(
-                  'kes 200',
+                  'kes ${widget.price! * _unit}',
                   style: GoogleFonts.acme(
                     height: 1.3,
                     textStyle: const TextStyle(
@@ -157,7 +200,7 @@ class _AddCartState extends State<AddCart> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            'People across the world use cumin as a spice.It packs alot of benefits into the tiny seeds',
+            widget.description!,
             style: GoogleFonts.acme(
               height: 1.7,
               textStyle: const TextStyle(
@@ -191,7 +234,23 @@ class _AddCartState extends State<AddCart> {
               color: kOrange,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(9.0))),
-              onPressed: () {
+              onPressed: () async {
+                final userId = uid;
+
+                final id = documentIdFromCurrentDate();
+                final time = DateTime.now().toIso8601String();
+                final item = CheckoutItem(
+                  downloadUrl: widget.url,
+                  timeStamp: time,
+                  quantity: widget.quantity! * _unit,
+                  price: widget.price! * _unit,
+                  productname: widget.spicename!,
+                  id: id,
+                  userId: userId,
+                );
+                final firestoreservice =
+                    Provider.of<Databaseservice>(context, listen: false);
+                await firestoreservice.setCheckoutItem(item);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

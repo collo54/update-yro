@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +34,13 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _submit();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   bool _validateAndSaveForm() {
@@ -62,6 +68,10 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
         final auth = Provider.of<AuthService>(context, listen: false);
         final userphone = await result.confirm(_code!);
         auth.userFromFirebase2(userphone.user);
+        final el = window.document.getElementById('__ff-recaptcha-container');
+        if (el != null) {
+          el.style.visibility = 'hidden';
+        }
         if (kDebugMode) {
           print('uid :${userphone.user!.uid}');
         }
@@ -80,7 +90,7 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
       setState(() {
         _result = user;
       });
-      print(widget.phone);
+      //print(widget.phone);
     } catch (e) {
       print(e.toString());
     }

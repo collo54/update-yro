@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../models/usermodel.dart';
 import '../services/auth_service.dart';
 import '../services/database_service.dart';
+import 'environment.dart';
 
 class WrapperBuilder extends StatelessWidget {
   const WrapperBuilder({Key? key, required this.builder}) : super(key: key);
@@ -23,7 +24,9 @@ class WrapperBuilder extends StatelessWidget {
                 Provider<Databaseservice>(
                   create: (_) => Databaseservice(uid: user.uid!),
                 ),
-
+                Provider<EnvironmentConfig>(
+                  create: (_) => EnvironmentConfig(),
+                ),
                 /*Provider<ImagePickerService>(
                   create: (_) => ImagePickerService(),
                 ),

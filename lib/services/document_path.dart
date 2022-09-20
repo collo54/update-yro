@@ -6,9 +6,9 @@ class DocumentPath {
   static String newproduct(String newproductId) => 'Apliances/$newproductId';
   static String streamproduct() => 'Apliances/';
 
-  static String newAllProduct(String newAllProductId) =>
-      'All Products/$newAllProductId';
-  static String streamAllProduct() => 'All Products/';
+  static String newAllSpices(String newAllSpicesId) =>
+      'All Spices/$newAllSpicesId';
+  static String streamAllSpices() => 'All Spices/';
 
   static String newComputer(String newComputerId) => 'Computers/$newComputerId';
   static String streamComputer() => 'Computers/';

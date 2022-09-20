@@ -16,31 +16,6 @@ class AuthenticationForm extends StatefulWidget {
 }
 
 class _AuthenticationFormState extends State<AuthenticationForm> {
-  final _formKey = GlobalKey<FormState>();
-
-  String? _name;
-
-  String string(String name) {
-    if (_name != null) {
-      setState(() {
-        name = _name!;
-      });
-    }
-    return name;
-  }
-
-  bool _validateAndSaveForm() {
-    final form = _formKey.currentState!;
-    if (form.validate()) {
-      form.save();
-      form.reset();
-      return true;
-    }
-    return false;
-  }
-
-  //A future asynchronous field that implements authservice to sign in anonymously when
-  // user clicks anonymous button
   Future<void> _signInAnonymously() async {
     try {
       final auth = Provider.of<AuthService>(context, listen: false);
@@ -59,6 +34,20 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
     try {
       final auth = Provider.of<AuthService>(context, listen: false);
       final user = await auth.signInWithFacebook();
+      if (kDebugMode) {
+        print('uid: ${user!.uid}');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      final auth = Provider.of<AuthService>(context, listen: false);
+      final user = await auth.signInWithGoogle();
       if (kDebugMode) {
         print('uid: ${user!.uid}');
       }
@@ -142,7 +131,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            'welcome choose service',
+            'welcome choose service ',
             style: GoogleFonts.acme(
               textStyle: const TextStyle(
                 color: Color.fromARGB(255, 37, 37, 37),
@@ -153,19 +142,19 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: _buildButtons()),
         const SizedBox(
-          height: 15,
+          height: 5,
         ),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: _buildButtons2()),
         const SizedBox(
-          height: 10,
+          height: 25,
         ),
       ],
     );
@@ -193,7 +182,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 5,
         ),
         TextButton(
           onPressed: () {}, // _toogleFormType,
@@ -221,7 +210,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(13.0)),
           ),
-          onPressed: () {}, //_signInWithGoogle(context),
+          onPressed: _signInWithGoogle,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Image.asset("assets/images/google-logo.png"),
@@ -235,7 +224,10 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           onPressed: _signinWithEmailandPassword,
           child: const Padding(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Icon(Icons.email),
+            child: Icon(
+              Icons.email,
+              color: kframe60,
+            ),
           ),
         ),
         MaterialButton(
@@ -246,61 +238,13 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
           onPressed: _signinWithPhonenumber,
           child: const Padding(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Icon(Icons.phone),
+            child: Icon(
+              Icons.phone,
+              color: kPrimary,
+            ),
           ),
         ),
       ],
     );
-  }
-
-  Widget _buildForm() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: _buildFormChildren(),
-      ),
-    );
-  }
-
-  List<Widget> _buildFormChildren() {
-    return [
-      const SizedBox(
-        height: 8,
-      ),
-      TextFormField(
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'enter your name';
-          }
-          return null;
-        },
-        //initialValue: _name,
-        onSaved: (value) => _name = value,
-        style: const TextStyle(fontWeight: FontWeight.w600),
-        decoration: InputDecoration(
-          fillColor: ktextfill,
-          filled: true,
-          labelText: 'enter name',
-          labelStyle: const TextStyle(color: klabeltext),
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(9.0),
-          ),
-          focusColor: const Color.fromRGBO(243, 242, 242, 1),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-                color: Color.fromRGBO(243, 242, 242, 1), width: 2.0),
-            borderRadius: BorderRadius.circular(25.0),
-          ),
-          hintStyle: const TextStyle(color: klabeltext),
-        ),
-        maxLines: 2,
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(
-        height: 30,
-      ),
-    ];
   }
 }

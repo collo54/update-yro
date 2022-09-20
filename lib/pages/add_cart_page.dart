@@ -4,7 +4,19 @@ import 'package:update_yro/layout/add_cart_layout.dart';
 import 'package:update_yro/layout/image_spice_cart.dart';
 
 class AddCartPage extends StatelessWidget {
-  const AddCartPage({Key? key}) : super(key: key);
+  const AddCartPage({
+    Key? key,
+    required this.urldownload,
+    required this.spicename,
+    required this.price,
+    required this.description,
+    required this.quantity,
+  }) : super(key: key);
+  final String? urldownload;
+  final String? spicename;
+  final double? price;
+  final String? description;
+  final double? quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +32,17 @@ class AddCartPage extends StatelessWidget {
       backgroundColor: kOrange,
       body: SingleChildScrollView(
         child: Column(
-          children: const <Widget>[
-            ImageSpiceCart(),
-            AddCart(),
+          children: <Widget>[
+            ImageSpiceLayout(
+              url: urldownload,
+            ),
+            AddCart(
+              url: urldownload,
+              description: description,
+              price: price,
+              spicename: spicename,
+              quantity: quantity,
+            ),
           ],
         ),
       ),
