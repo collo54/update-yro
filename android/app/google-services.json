@@ -29,6 +29,13 @@
             {
               "client_id": "908731371262-cch08cc4nfi1lebnci161jk8hm0m1epp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "908731371262-o2mvq7l8hnb60mqfetu4spc6bvjqf3df.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.updateYro"
+              }
             }
           ]
         }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:update_yro/constants/colors.dart';
-import 'package:update_yro/custom/data_search.dart';
 import 'package:update_yro/custom/environment.dart';
 import 'package:update_yro/layout/add_spice_form.dart';
 import 'package:update_yro/models/checkout_product.dart';

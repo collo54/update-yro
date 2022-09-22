@@ -53,7 +53,7 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
     return false;
   }
 
-  //A future asynchronous field that implements authservice to sign in anonymously when
+  //A future asynchronous field that implements authservice to sign in with phonenumber when
   // user clicks anonymous button
   Future<void> _signInAnonymously(ConfirmationResult result) async {
     if (_validateAndSaveForm()) {
@@ -65,9 +65,9 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
       });
 
       try {
-        final auth = Provider.of<AuthService>(context, listen: false);
+        final _auth = Provider.of<AuthService>(context, listen: false);
         final userphone = await result.confirm(_code!);
-        auth.userFromFirebase2(userphone.user);
+        _auth.userFromFirebase2(userphone.user);
         final el = window.document.getElementById('__ff-recaptcha-container');
         if (el != null) {
           el.style.visibility = 'hidden';
@@ -83,10 +83,35 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
     }
   }
 
+  Future<void> _signInOTP() async {
+    if (_validateAndSaveForm()) {
+      if (kDebugMode) {
+        print(widget.phone);
+      }
+
+      try {
+        final _auth = Provider.of<AuthService>(context, listen: false);
+        final signinnumber = await _auth.signInWithOTPCode(_result!, _code!);
+        signinnumber;
+        final el = window.document.getElementById('__ff-recaptcha-container');
+        if (el != null) {
+          el.style.visibility = 'hidden';
+        }
+        if (kDebugMode) {
+          print('uid :${signinnumber!.uid}');
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+      }
+    }
+  }
+
   Future<void> _submit() async {
     try {
-      final auth = Provider.of<AuthService>(context, listen: false);
-      final user = await auth.signInWithPhoneNumber2(widget.phone);
+      final _auth = Provider.of<AuthService>(context, listen: false);
+      final user = await _auth.signInWithPhoneNumber2(widget.phone);
       setState(() {
         _result = user;
       });
@@ -183,7 +208,7 @@ class _SmsVerificationFormState extends State<SmsVerificationForm> {
           color: kOrange,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(13.0))),
-          onPressed: () => _signInAnonymously(_result!),
+          onPressed: () => _signInOTP(), // _signInAnonymously(_result!),
           child: const Padding(
             padding: EdgeInsets.symmetric(vertical: 18.0, horizontal: 25.0),
             child: Text(

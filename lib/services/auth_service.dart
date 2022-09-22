@@ -4,17 +4,17 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:update_yro/models/usermodel.dart';
 
 class AuthService {
-  final FirebaseAuth _firebaseAuth;
-  final GoogleSignIn _googleSignIn;
-  final FacebookAuth _facebookAuth;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FacebookAuth _facebookAuth = FacebookAuth.instance;
 
-  AuthService(
-      {FirebaseAuth? firebaseAuth,
-      GoogleSignIn? googleSignin,
-      FacebookAuth? facebookAuth})
-      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+  /* AuthService({
+    FirebaseAuth? firebaseAuth,
+    GoogleSignIn? googleSignin,
+    FacebookAuth? facebookAuth,
+  })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _facebookAuth = facebookAuth ?? FacebookAuth.instance,
-        _googleSignIn = googleSignin ?? GoogleSignIn();
+        _googleSignIn = googleSignin ?? GoogleSignIn();*/
 
   Userre? _userFromFirebase(User? user) {
     if (user == null) {
@@ -104,20 +104,11 @@ class AuthService {
     return confirmationResult;
   }
 
-  Future<Userre?> signInWithPhoneNumber3(String phoneno, String code) async {
-    ConfirmationResult confirmationResult =
-        await _firebaseAuth.signInWithPhoneNumber(
-      phoneno,
-    );
+  Future<Userre?> signInWithOTPCode(
+      ConfirmationResult confirmationResult, String code) async {
     UserCredential userCredential = await confirmationResult.confirm(code);
     return _userFromFirebase(userCredential.user);
   }
-
-//SignIn
-/*  signIn(AuthCredential credential) {
-    FirebaseAuth.instance.signInWithCredential(credential);
-  }
-  */
 
   Future<Userre?> signInWithOTP(String smsCode, String verId) async {
     AuthCredential credential =
