@@ -9,6 +9,8 @@ class AddCartPage extends StatelessWidget {
     required this.urldownload,
     required this.spicename,
     required this.price,
+    required this.color,
+    required this.color1,
     required this.description,
     required this.quantity,
   }) : super(key: key);
@@ -17,6 +19,8 @@ class AddCartPage extends StatelessWidget {
   final double? price;
   final String? description;
   final double? quantity;
+  final Color? color;
+  final Color? color1;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +31,9 @@ class AddCartPage extends StatelessWidget {
           color: kwhite,
           size: 36,
         ),
-        backgroundColor: kOrange,
+        backgroundColor: color1,
       ),
-      backgroundColor: kOrange,
+      backgroundColor: color,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

@@ -60,7 +60,7 @@ class DataSearch extends SearchDelegate<String> {
         onTap: () {
           showResults(context);
         },
-        leading: const Icon(Icons.palette),
+        leading: const Icon(Icons.shopping_basket),
         title: RichText(
           text: TextSpan(
             text: suggestionlist[index].substring(0, query.length),

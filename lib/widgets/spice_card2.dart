@@ -4,18 +4,39 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:update_yro/constants/colors.dart';
 
-class SpiceCard2 extends StatelessWidget {
+import '../constants/enums_file.dart';
+
+class SpiceCard2 extends StatefulWidget {
   SpiceCard2({
     Key? key,
     required this.price,
     required this.spice,
     required this.imageurl,
+    required this.quantity,
+    this.callback,
     // required this.color,
   }) : super(key: key);
   final String? price;
+  final String? quantity;
   final String? spice;
   final String? imageurl;
+  final VoidCallback? callback;
+
+  @override
+  State<SpiceCard2> createState() => _SpiceCard2State();
+}
+
+class _SpiceCard2State extends State<SpiceCard2> {
   //final Color? color;
+  IconLikeType iconType = IconLikeType.unliked;
+
+  void _toogleFormType() {
+    setState(() {
+      iconType = iconType == IconLikeType.unliked
+          ? IconLikeType.liked
+          : IconLikeType.unliked;
+    });
+  }
 
   List<Color> c = [klightlavender, klightcayyene, klightpersley];
 
@@ -23,6 +44,9 @@ class SpiceCard2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final IconData _icon = iconType == IconLikeType.unliked
+        ? Icons.favorite_border_outlined
+        : Icons.favorite_rounded;
     return SafeArea(
       child: Container(
         height: 150,
@@ -37,19 +61,20 @@ class SpiceCard2 extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite_border_outlined,
-                  color: kOrange,
-                ),
-              ),
+                  onPressed: () {
+                    _toogleFormType();
+                  },
+                  icon: Icon(
+                    _icon,
+                    color: kOrange,
+                  )),
             ),
             Align(
               alignment: const Alignment(0.0, -1),
               child: SizedBox(
                 width: 88,
                 height: 63,
-                child: Image.asset(imageurl!),
+                child: Image.asset(widget.imageurl!),
               ),
             ),
             Align(
@@ -61,7 +86,7 @@ class SpiceCard2 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        spice!,
+                        widget.spice!,
                         style: GoogleFonts.acme(
                           height: 1.3,
                           textStyle: const TextStyle(
@@ -72,7 +97,7 @@ class SpiceCard2 extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        price!,
+                        '${widget.price} per ${widget.quantity}grams',
                         style: GoogleFonts.acme(
                           // height: 1.14,
                           textStyle: const TextStyle(
@@ -84,12 +109,14 @@ class SpiceCard2 extends StatelessWidget {
                       ),
                     ],
                   ),
-                  IconButton(
-                    splashColor: klabeltext,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.add,
-                      color: kOrange,
+                  Expanded(
+                    child: IconButton(
+                      splashColor: klabeltext,
+                      onPressed: widget.callback,
+                      icon: const Icon(
+                        Icons.add,
+                        color: kOrange,
+                      ),
                     ),
                   ),
                 ],

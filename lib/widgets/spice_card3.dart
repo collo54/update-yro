@@ -106,12 +106,14 @@ class _SpiceCard4State extends State<SpiceCard3> {
                       ),
                     ],
                   ),
-                  IconButton(
-                    splashColor: klabeltext,
-                    onPressed: widget.callback,
-                    icon: const Icon(
-                      Icons.add,
-                      color: kOrange,
+                  Expanded(
+                    child: IconButton(
+                      splashColor: klabeltext,
+                      onPressed: widget.callback,
+                      icon: const Icon(
+                        Icons.add,
+                        color: kOrange,
+                      ),
                     ),
                   ),
                 ],

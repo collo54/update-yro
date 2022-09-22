@@ -10,6 +10,7 @@ import 'package:update_yro/pages/add_cart_page.dart';
 import 'package:update_yro/services/database_service.dart';
 import 'package:update_yro/widgets/spice_card.dart';
 import 'package:provider/provider.dart';
+import '../custom/spice_data_search.dart';
 import '../pages/order_list_page.dart';
 import '../widgets/empty_data.dart';
 import '../widgets/spice_card2.dart';
@@ -78,7 +79,8 @@ class _HomecontentState extends State<Homecontent> {
         const SizedBox(
           height: 10,
         ),
-        const HorizontalSpiceWidget(),
+        ChipsStream(databaseservice: databaseservice, user: userdata),
+        //const HorizontalSpiceWidget(),
         const SizedBox(
           height: 10,
         ),
@@ -138,6 +140,8 @@ class SpicesReccomendedStream extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => AddCartPage(
+                            color1: kOrange,
+                            color: kOrange,
                             quantity: product.quantity,
                             urldownload: product.downloadUrl,
                             description: product.description,
@@ -195,6 +199,81 @@ class SpicesReccomendedStream extends StatelessWidget {
   }
 }
 
+class ChipsStream extends StatelessWidget {
+  const ChipsStream({
+    Key? key,
+    required this.databaseservice,
+    required this.user,
+  }) : super(key: key);
+
+  final Databaseservice databaseservice;
+  final Userre user;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<List<CheckoutItem>>(
+      stream: databaseservice.productItemStreamAll(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final productdata = snapshot.data;
+          if (productdata!.isNotEmpty) {
+            final children = productdata
+                .map(
+                  (product) => GestureDetector(
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddCartPage(
+                            color1: kOrange,
+                            color: kOrange,
+                            quantity: product.quantity,
+                            urldownload: product.downloadUrl,
+                            description: product.description,
+                            price: product.price,
+                            spicename: product.productname,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Chip(
+                        backgroundColor: Colors.white,
+                        padding: const EdgeInsets.all(10),
+                        label: Text(
+                          product.productname!,
+                          style: GoogleFonts.acme(
+                            height: 1.14,
+                            textStyle: const TextStyle(
+                              color: kframe60,
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+                .toList();
+            return HorizontalSpiceWidgetStream(
+              children: children,
+            );
+          }
+          return const SizedBox(
+            height: 40,
+          );
+        }
+        if (snapshot.hasError) {
+          return const Center(child: Text('error occurred'));
+        }
+        return const Center(child: LinearProgressIndicator());
+      },
+    );
+  }
+}
+
 class HottestSpices extends StatelessWidget {
   const HottestSpices({
     Key? key,
@@ -215,8 +294,9 @@ class HottestSpices extends StatelessWidget {
               elevation: 10,
               child: SpiceCard2(
                 imageurl: 'assets/images/spice3.jpg',
-                price: '200 per kg',
+                price: '200',
                 spice: 'curry',
+                quantity: '200',
               ),
               shadowColor: klabeltext,
             ),
@@ -226,8 +306,9 @@ class HottestSpices extends StatelessWidget {
             Card(
               elevation: 10,
               child: SpiceCard2(
+                quantity: '100',
                 imageurl: 'assets/images/spice3.jpg',
-                price: '100 per kg',
+                price: '100 ',
                 spice: 'lavender',
               ),
               shadowColor: klabeltext,
@@ -239,8 +320,9 @@ class HottestSpices extends StatelessWidget {
               elevation: 10,
               child: SpiceCard2(
                 imageurl: 'assets/images/spice3.jpg',
-                price: '150 per kg',
+                price: '150',
                 spice: 'pepper',
+                quantity: '100',
               ),
               shadowColor: klabeltext,
             ),
@@ -670,6 +752,37 @@ class HorizontalSpiceWidget extends StatelessWidget {
   }
 }
 
+class HorizontalSpiceWidgetStream extends StatelessWidget {
+  const HorizontalSpiceWidgetStream({
+    required this.children,
+    Key? key,
+  }) : super(key: key);
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2),
+      child: Container(
+        height: 40,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: children,
+        ),
+        decoration: const BoxDecoration(
+          color: kframe63,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(1),
+            topRight: Radius.circular(1),
+            bottomLeft: Radius.circular(1),
+            bottomRight: Radius.circular(1),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class SearchSpicewidget extends StatelessWidget {
   const SearchSpicewidget({
     Key? key,
@@ -679,40 +792,40 @@ class SearchSpicewidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              child: const Icon(Icons.search),
-              onTap: () {
-                showSearch(context: context, delegate: DataSearch());
-              },
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(
-              'search for spices',
-              style: GoogleFonts.acme(
-                height: 1.3,
-                textStyle: const TextStyle(
-                  color: Color.fromARGB(255, 145, 146, 146),
-                  fontSize: 12,
-                  fontWeight: FontWeight.normal,
+      child: GestureDetector(
+        onTap: () {
+          showSearch(context: context, delegate: DataSearch2());
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'search for spices',
+                style: GoogleFonts.acme(
+                  height: 1.3,
+                  textStyle: const TextStyle(
+                    color: Color.fromARGB(255, 145, 146, 146),
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ),
+              const SizedBox(
+                width: 5,
+              ),
+              const Icon(Icons.search),
+            ],
+          ),
+          decoration: const BoxDecoration(
+            color: ktextfill,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16),
             ),
-          ],
-        ),
-        decoration: const BoxDecoration(
-          color: ktextfill,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
-            bottomLeft: Radius.circular(16),
-            bottomRight: Radius.circular(16),
           ),
         ),
       ),

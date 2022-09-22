@@ -297,7 +297,7 @@ class CheckoutStream extends StatelessWidget {
         if (snapshot.hasError) {
           return const Center(child: Text('error occurred'));
         }
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: LinearProgressIndicator());
       },
     );
   }
