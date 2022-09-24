@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:update_yro/constants/colors.dart';
@@ -66,6 +67,10 @@ class _HomecontentState extends State<Homecontent> {
         Provider.of<Databaseservice>(context, listen: false);
     final String? uid = userdata.uid;
     final String? adminId = admin.adminId;
+    final String? vapid = admin.vapidId;
+    if (kDebugMode) {
+      print(vapid);
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
